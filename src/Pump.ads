@@ -4,9 +4,9 @@ package Pump is
 
    protected WaterPump is
 
-      entry TurnOnPump();
-      entry TurnOffPump();
-      entry FlowStatus(Status: out PumpSatus, Flow: out Integer);
+      procedure TurnOnPump;
+      procedure TurnOffPump;
+      procedure FlowStatus(Status: out PumpStatus; Flow: out Integer);
 
    private
       Status: PumpStatus := OFF;
