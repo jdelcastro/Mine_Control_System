@@ -1,15 +1,15 @@
 package Pump is
 
-   type PumpStatus is (ON, OFF);
 
    protected WaterPump is
 
-      procedure TurnOnPump;
-      procedure TurnOffPump;
-      procedure FlowStatus(Status: out PumpStatus; Flow: out Integer);
+      entry TurnOnPump;
+      entry TurnOffPump;
+      procedure FlowStatus(Stat: out BOOLEAN; Flow: out Integer);
+      procedure UpdateFlow(Flow: in Integer);
 
    private
-      Status: PumpStatus := OFF;
+      Status: BOOLEAN := FALSE;
       FlowIndex: Integer := 0;
 
    end WaterPump;
