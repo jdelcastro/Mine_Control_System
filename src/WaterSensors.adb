@@ -12,7 +12,7 @@ package body WaterSensors is
    LOWWATER: constant Integer := 10;
 
    task body WaterFlowSensor is
-      Interval: Duration:= Duration(12);
+      Interval: Duration:= Duration(1);
       Next_Time : Calendar.Time := Calendar.Clock;
       Status: BOOLEAN;
       Flow: Integer;
@@ -21,6 +21,8 @@ package body WaterSensors is
          --Entrar no Pump para ver o FLOW
          delay until Next_Time;
          Pump.WaterPump.FlowStatus(Status,Flow);
+         Controller.FlowController.FlowUpdate(Flow);
+         Next_Time := Next_Time + Interval;
       end loop;
    end WaterFlowSensor;
 
@@ -31,7 +33,7 @@ package body WaterSensors is
       loop
          Sump.Sump.HighLevelWater(WValue);
          if WValue >= HIGHWATER then
-            Put_Line("High");
+            --Put_Line("High");
             Put(WValue);
             if Flag = TRUE then
                Controller.SystemController.Interrupt(TRUE);
@@ -52,7 +54,7 @@ package body WaterSensors is
       loop
          Sump.Sump.LowLevelWater(WValue);
          if WValue <= LOWWATER then
-            Put_Line("Low");
+            --Put_Line("Low");
             if Flag = TRUE then
                Put_Line("Low Interrupt");
                Controller.SystemController.Interrupt(FALSE);

@@ -11,7 +11,7 @@ package body Water is
    FLOWMIN: constant Integer:= 0;
    WATER_MAX: constant Integer:= 100;
    WATER_MIN: constant Integer:= 0;
-   WATER_VALUE: constant Integer:=6;
+   WATER_VALUE: constant Integer:=1;
 
    FLOW_VALUE: constant Integer:=1;
 
@@ -47,7 +47,7 @@ package body Water is
             WaterValue := WATER_MIN;
          end if;
          Sump.Sump.UpdateWaterLevelValue(WaterValue);
-         Put(WaterValue); Put_Line(" Water value");
+         --Put(WaterValue); Put_Line(" Water value");
          Next_Time := Next_Time + Interval;
       end loop;
    end WaterSimulation;

@@ -1,7 +1,7 @@
 package Sensors is
 
-   --task CarbonMonoxideSensor;
+   task CarbonMonoxideSensor;
    task MethaneSensor;
-   --task AirFlowSensor;
+   task AirFlowSensor;
 
 end Sensors;
