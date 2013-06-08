@@ -54,6 +54,7 @@ package body WaterSensors is
          if WValue <= LOWWATER then
             Put_Line("Low");
             if Flag = TRUE then
+               Put_Line("Low Interrupt");
                Controller.SystemController.Interrupt(FALSE);
                Flag:=FALSE;
             end if;

@@ -8,13 +8,19 @@ With Sump;
 package body Water is
 
    FLOWMAX: constant Integer:= 10;
+   FLOWMIN: constant Integer:= 0;
+   WATER_MAX: constant Integer:= 100;
+   WATER_MIN: constant Integer:= 0;
+   WATER_VALUE: constant Integer:=6;
+
+   FLOW_VALUE: constant Integer:=1;
 
    --SIMULATION
    task body WaterSimulation is
 
       Interval: Duration:= Duration(1);
       Next_Time : Calendar.Time := Calendar.Clock;
-      WaterValue: Integer range 1..100 := 50;
+      WaterValue: Integer := 50;
       PumpFlow: Integer := 0;
       Dir: BOOLEAN;
    begin
@@ -24,16 +30,21 @@ package body Water is
          if Dir = FALSE then
             -- GERAR VALOR ALEATORIO PARA POR NA AGUA
             if PumpFlow /= 0 then
-               PumpFlow:= PumpFlow-1;
+               PumpFlow:= PumpFlow-FLOW_VALUE;
                Pump.WaterPump.UpdateFlow(PumpFlow);
             end if;
-            WaterValue:= WaterValue+6;
+            WaterValue:= WaterValue+WATER_VALUE;
          else
             if PumpFlow /= FLOWMAX then
-               PumpFlow:= PumpFlow+1;
+               PumpFlow:= PumpFlow+FLOW_VALUE;
                Pump.WaterPump.UpdateFlow(PumpFlow);
             end if;
-            WaterValue:= WaterValue-6;
+            WaterValue:= WaterValue-WATER_VALUE;
+         end if;
+         if WaterValue > WATER_MAX then
+            WaterValue := WATER_MAX;
+         elsif WaterValue <WATER_MIN then
+            WaterValue := WATER_MIN;
          end if;
          Sump.Sump.UpdateWaterLevelValue(WaterValue);
          Put(WaterValue); Put_Line(" Water value");
